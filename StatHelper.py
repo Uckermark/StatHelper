@@ -2,99 +2,99 @@ import ac
 import acsys
 from sim_info_lib.sim_info import info
 
-path = "apps/python/StatHelper/"
-texture = path + "texture/"
-# labels
-l_drs = 0
-l_gear = 0
-l_ers = 0
-l_lapers = 0
-l_speed = 0
-l_rpm = 0
-l_flags = 0
-l_ot = 0
-l_pos = 0
-l_lap = 0
-l_fuel = 0
-# app
-app_window = 0
-# data
-speed = 0
-drs = 0
-ot = ""
-gear = 0
-ers = 0
-lap_ers = 0
-ers_mode = 0
-rpm = 0
-pos = 0
-lap = 0
-fuel = 0
-flag = 0
-# perfcounter
-x = 0
-y = 0
-ot_flag = False
-drs_flag = False
-prev_flag = 0
 
-
-def refresh_data():
-    global speed, drs, ot, gear, ers, lap_ers, ers_mode, rpm, pos, lap, fuel, flag
-    speed = ac.getCarState(0, acsys.CS.SpeedKMH)
-    drs = True if int(ac.getCarState(0, acsys.CS.DrsEnabled)) == 1 else False
-    ot = True if int(ac.getCarState(0, acsys.CS.KersInput)) == 1 else False
-    gear = ac.getCarState(0, acsys.CS.Gear) - 1
-    ers = 100 * ac.getCarState(0, acsys.CS.KersCharge)
-    lap_ers = int(100 - ((ac.getCarState(0, acsys.CS.ERSCurrentKJ)) / (ac.getCarState(0, acsys.CS.ERSMaxJ) * 0.001)) * 100)
-    ers_mode = ac.getCarState(0, acsys.CS.ERSDelivery)
-    rpm = int(ac.getCarState(0, acsys.CS.RPM))
-    pos = ac.getCarRealTimeLeaderboardPosition(0) + 1
-    laps = []
-    cars = ac.getCarsCount()
-    for i in range(cars):
-        laps.append(ac.getCarState(i, acsys.CS.LapCount))
-    lap = max((laps[i] for i in range(cars))) + 1
-    fuel = int(info.physics.fuel / info.static.maxFuel * 100)
-    flag = int(info.graphics.flag)
-
-
-def init_labels():
-    global l_drs, l_gear, l_ers, l_lapers, l_rpm, l_speed, l_ersm, l_ot, l_pos, l_lap, l_fuel, app_window
-    ac.setTitle(app_window, "")
-    l_drs = ac.addLabel(app_window, "")
-    l_gear = ac.addLabel(app_window, "")
-    l_ers = ac.addLabel(app_window, "")
-    l_lapers = ac.addLabel(app_window, "")
-    l_speed = ac.addLabel(app_window, "")
-    l_rpm = ac.addLabel(app_window, "")
-    l_flag = ac.addLabel(app_window, "")
-    l_ot = ac.addLabel(app_window, "")
-    l_pos = ac.addLabel(app_window, "")
-    l_lap = ac.addLabel(app_window, "")
-    l_fuel = ac.addLabel(app_window, "")
-    ac.setPosition(l_gear, 195, 5)
-    ac.setPosition(l_ers, 280, 0)
-    ac.setPosition(l_lapers, 261, 0)
-    ac.setPosition(l_drs, 70, 50)
-    ac.setPosition(l_speed, 80, 9)
-    ac.setPosition(l_rpm, 170, 70)
-    ac.setPosition(l_ersm, 3, 9)
-    ac.setPosition(l_ot, 140, 50)
-    ac.setPosition(l_pos, 3, 50)
-    ac.setPosition(l_lap, 3, 70)
-    ac.setPosition(l_fuel, 242, 0)
-    ac.setSize(l_ers, 20, 100)
-    ac.setSize(l_lapers, 20, 100)
-    ac.setSize(l_ot, 40, 30)
-    ac.setSize(l_drs, 60, 30)
-    ac.setSize(l_fuel, 20, 100)
-    labels = [l_drs, l_ers, l_lapers, l_speed, l_rpm, l_ersm, l_gear, l_pos, l_lap, l_fuel]
-    for label in labels:
-        # ac.setFontColor(label, 0, 0, 0, 1)
-        ac.setFontSize(label, 18)
-        ac.setCustomFont(label, "Formula1 Display", 0, 1)
-    ac.setFontSize(l_gear, 25)
+class acs:
+    def __init__(self):
+        self.path = "apps/python/StatHelper/"
+        self.texture = self.path + "texture/"
+        # label
+        self.l_drs = 0
+        self.l_gear = 0
+        self.l_ers = 0
+        self.l_lapers = 0
+        self.l_speed = 0
+        self.l_rpm = 0
+        self.l_flags = 0
+        self.l_ot = 0
+        self.l_pos = 0
+        self.l_lap = 0
+        self.l_fuel = 0
+        # app
+        self.app_window = 0
+        # data
+        self.speed = 0
+        self.drs = 0
+        self.ot = ""
+        self.gear = 0
+        self.ers = 0
+        self.lap_ers = 0
+        self.ers_mode = 0
+        self.rpm = 0
+        self.pos = 0
+        self.lap = 0
+        self.fuel = 0
+        self.flag = 0
+        # perfcounter
+        self.x = 0
+        self.y = 0
+        self.ot_flag = False
+        self.drs_flag = False
+        self.prev_flag = 0
+        
+        
+    def refresh_data():
+        self.speed = ac.getCarState(0, acsys.CS.SpeedKMH)
+        self.drs = True if int(ac.getCarState(0, acsys.CS.DrsEnabled)) == 1 else False
+        self.ot = True if int(ac.getCarState(0, acsys.CS.KersInput)) == 1 else False
+        self.gear = ac.getCarState(0, acsys.CS.Gear) - 1
+        self.ers = 100 * ac.getCarState(0, acsys.CS.KersCharge)
+        self.lap_ers = int(100 - ((ac.getCarState(0, acsys.CS.ERSCurrentKJ)) / (ac.getCarState(0, acsys.CS.ERSMaxJ) * 0.001)) * 100)
+        self.ers_mode = ac.getCarState(0, acsys.CS.ERSDelivery)
+        self.rpm = int(ac.getCarState(0, acsys.CS.RPM))
+        self.pos = ac.getCarRealTimeLeaderboardPosition(0) + 1
+        laps = []
+        cars = ac.getCarsCount()
+        for i in range(cars):
+            laps.append(ac.getCarState(i, acsys.CS.LapCount))
+        self.lap = max((laps[i] for i in range(cars))) + 1
+        self.fuel = int(info.physics.fuel / info.static.maxFuel * 100)
+        self.flag = int(info.graphics.flag)
+        
+    def init_labels():
+        ac.setTitle(app_window, "")
+        self.l_drs = ac.addLabel(app_window, "")
+        self.l_gear = ac.addLabel(app_window, "")
+        self.l_ers = ac.addLabel(app_window, "")
+        self.l_lapers = ac.addLabel(app_window, "")
+        self.l_speed = ac.addLabel(app_window, "")
+        self.l_rpm = ac.addLabel(app_window, "")
+        self.l_flag = ac.addLabel(app_window, "")
+        self.l_ot = ac.addLabel(app_window, "")
+        self.l_pos = ac.addLabel(app_window, "")
+        self.l_lap = ac.addLabel(app_window, "")
+        self.l_fuel = ac.addLabel(app_window, "")
+        ac.setPosition(self.l_gear, 195, 5)
+        ac.setPosition(self.l_ers, 280, 0)
+        ac.setPosition(self.l_lapers, 261, 0)
+        ac.setPosition(self.l_drs, 70, 50)
+        ac.setPosition(self.l_speed, 80, 9)
+        ac.setPosition(self.l_rpm, 170, 70)
+        ac.setPosition(self.l_ersm, 3, 9)
+        ac.setPosition(self.l_ot, 140, 50)
+        ac.setPosition(self.l_pos, 3, 50)
+        ac.setPosition(self.l_lap, 3, 70)
+        ac.setPosition(self.l_fuel, 242, 0)
+        ac.setSize(self.l_ers, 20, 100)
+        ac.setSize(self.l_lapers, 20, 100)
+        ac.setSize(self.l_ot, 40, 30)
+        ac.setSize(self.l_drs, 60, 30)
+        ac.setSize(self.l_fuel, 20, 100)
+        labels = [self.l_drs, self.l_ers, self.l_lapers, self.l_speed, self.l_rpm, self.l_ersm, self.l_gear, self.l_pos, self.l_lap, self.l_fuel]
+        for label in labels:
+            # ac.setFontColor(label, 0, 0, 0, 1)
+            ac.setFontSize(label, 18)
+            ac.setCustomFont(label, "Formula1 Display", 0, 1)
+        ac.setFontSize(self.l_gear, 25)
 
 
 def update_ers():
