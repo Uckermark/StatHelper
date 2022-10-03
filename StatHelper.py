@@ -135,7 +135,7 @@ class acs:
             else:
                 ac.log("process \"lap_ers\" failed")
             
-        def update()
+        def update():
             self.x += 1
             if self.x >= 3:
                 self.refresh_data()
