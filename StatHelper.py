@@ -132,8 +132,8 @@ class acs:
         def update_lap_ers():
             if 100 >= self.lap_ers >= 0:
                 ac.setBackgroundTexture(self.l_lapers, self.texture + "lap_ers/" + str(self.lap_ers) + ".png")
-        else:
-            ac.log("process \"lap_ers\" failed")
+            else:
+                ac.log("process \"lap_ers\" failed")
             
         def update()
             self.x += 1
