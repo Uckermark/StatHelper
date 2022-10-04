@@ -30,10 +30,10 @@ class acs:
         self.drs_flag = False
         self.prev_flag = 0
         # data
-        # TODO: detect DRS and remove DRS/ERS check from refresh_data() if no DRS/ERS in car
+        # TODO: remove DRS/ERS check from refresh_data() if no DRS/ERS in car
+        self.has_drs = True if info.static.hasDRS == 1 else False
+        self.has_ers = True if info.static.hasDRS == 1 else False
         self.refresh_data()
-        self.has_drs = True 
-        self.has_ers = True if ac.getCarState(0, acsys.CS.ERSMaxJ) > 0 else False
         # init app window
         self.app_window = ac.newApp("StatHelper")
         ac.setSize(self.app_window, 300, 100)
