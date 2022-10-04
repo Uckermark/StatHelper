@@ -30,7 +30,6 @@ class acs:
         self.drs_flag = False
         self.prev_flag = 0
         # data
-        # TODO: remove DRS/ERS check from refresh_data() if no DRS/ERS in car
         self.has_drs = True if info.static.hasDRS == 1 else False
         self.has_ers = True if info.static.hasDRS == 1 else False
         self.refresh_data()
@@ -46,12 +45,14 @@ class acs:
         
     def refresh_data(self):
         self.speed = ac.getCarState(0, acsys.CS.SpeedKMH)
-        self.drs = True if int(ac.getCarState(0, acsys.CS.DrsEnabled)) == 1 else False
+        if self.has_drs:
+            self.drs = True if int(ac.getCarState(0, acsys.CS.DrsEnabled)) == 1 else False
         self.ot = True if int(ac.getCarState(0, acsys.CS.KersInput)) == 1 else False
         self.gear = ac.getCarState(0, acsys.CS.Gear) - 1
-        self.ers = 100 * ac.getCarState(0, acsys.CS.KersCharge)
-        self.lap_ers = int(100 - ((ac.getCarState(0, acsys.CS.ERSCurrentKJ)) / (ac.getCarState(0, acsys.CS.ERSMaxJ) * 0.001)) * 100)
-        self.ers_mode = ac.getCarState(0, acsys.CS.ERSDelivery)
+        if self.has_ers:
+            self.ers = 100 * ac.getCarState(0, acsys.CS.KersCharge)
+            self.lap_ers = int(100 - ((ac.getCarState(0, acsys.CS.ERSCurrentKJ)) / (ac.getCarState(0, acsys.CS.ERSMaxJ) * 0.001)) * 100)
+            self.ers_mode = ac.getCarState(0, acsys.CS.ERSDelivery)
         self.rpm = int(ac.getCarState(0, acsys.CS.RPM))
         self.pos = ac.getCarRealTimeLeaderboardPosition(0) + 1
         laps = []
@@ -140,15 +141,17 @@ class acs:
             elif not self.ot_flag and not self.ot:
                 ac.setBackgroundTexture(self.l_ot, self.texture + "ot/overtake_off.png")
                 self.ot_flag = True
-            if self.drs_flag and self.drs:
-                ac.setBackgroundTexture(self.l_drs, self.texture + "drs/drs_on.png")
-                self.drs_flag = False
-            elif not self.drs_flag and not self.drs:
-                ac.setBackgroundTexture(self.l_drs, self.texture + "drs/drs_off.png")
-                self.drs_flag = True
-            self.update_lap_ers()
+            if self.has_drs:
+                if self.drs_flag and self.drs:
+                    ac.setBackgroundTexture(self.l_drs, self.texture + "drs/drs_on.png")
+                    self.drs_flag = False
+                elif not self.drs_flag and not self.drs:
+                    ac.setBackgroundTexture(self.l_drs, self.texture + "drs/drs_off.png")
+                    self.drs_flag = True
+            if self.has_ers:
+                self.update_lap_ers()
+                self.update_ers()
             self.update_fuel()
-            self.update_ers()
             if self.gear == -1:
                 ac.setText(self.l_gear, "R")
             elif self.gear == 0:
