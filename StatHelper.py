@@ -50,7 +50,7 @@ class acs:
         self.init_labels()
         
         
-    def refresh_data():
+    def refresh_data(self):
         self.speed = ac.getCarState(0, acsys.CS.SpeedKMH)
         self.drs = True if int(ac.getCarState(0, acsys.CS.DrsEnabled)) == 1 else False
         self.ot = True if int(ac.getCarState(0, acsys.CS.KersInput)) == 1 else False
@@ -68,19 +68,19 @@ class acs:
         self.fuel = int(info.physics.fuel / info.static.maxFuel * 100)
         self.flag = int(info.graphics.flag)
         
-    def init_labels():
-        ac.setTitle(app_window, "")
-        self.l_drs = ac.addLabel(app_window, "")
-        self.l_gear = ac.addLabel(app_window, "")
-        self.l_ers = ac.addLabel(app_window, "")
-        self.l_lapers = ac.addLabel(app_window, "")
-        self.l_speed = ac.addLabel(app_window, "")
-        self.l_rpm = ac.addLabel(app_window, "")
-        self.l_flag = ac.addLabel(app_window, "")
-        self.l_ot = ac.addLabel(app_window, "")
-        self.l_pos = ac.addLabel(app_window, "")
-        self.l_lap = ac.addLabel(app_window, "")
-        self.l_fuel = ac.addLabel(app_window, "")
+    def init_labels(self):
+        ac.setTitle(self.app_window, "")
+        self.l_drs = ac.addLabel(self.app_window, "")
+        self.l_gear = ac.addLabel(self.app_window, "")
+        self.l_ers = ac.addLabel(self.app_window, "")
+        self.l_lapers = ac.addLabel(self.app_window, "")
+        self.l_speed = ac.addLabel(self.app_window, "")
+        self.l_rpm = ac.addLabel(self.app_window, "")
+        self.l_flag = ac.addLabel(self.app_window, "")
+        self.l_ot = ac.addLabel(self.app_window, "")
+        self.l_pos = ac.addLabel(self.app_window, "")
+        self.l_lap = ac.addLabel(self.app_window, "")
+        self.l_fuel = ac.addLabel(self.app_window, "")
         ac.setPosition(self.l_gear, 195, 5)
         ac.setPosition(self.l_ers, 280, 0)
         ac.setPosition(self.l_lapers, 261, 0)
