@@ -106,7 +106,7 @@ class acs:
         ac.setFontSize(self.l_gear, 25)
         
         
-    def update_ers():
+    def update_ers(self):
         self.y += 1
         if self.y == 2:
             int_ers = int(self.ers)
@@ -123,20 +123,20 @@ class acs:
             self.y = 0
                 
                 
-    def update_fuel():
+    def update_fuel(self):
         if 100 >= self.fuel >= 0:
             ac.setBackgroundTexture(self.l_fuel, self.texture + "fuel/" + str(self.fuel) + ".png")
         else:
             ac.log("process \"fuel\" failed")
         
         
-    def update_lap_ers():
+    def update_lap_ers(self):
         if 100 >= self.lap_ers >= 0:
             ac.setBackgroundTexture(self.l_lapers, self.texture + "lap_ers/" + str(self.lap_ers) + ".png")
         else:
             ac.log("process \"lap_ers\" failed")
             
-    def update():
+    def update(self):
         self.x += 1
         if self.x >= 3:
             self.refresh_data()
