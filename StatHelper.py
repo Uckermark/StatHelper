@@ -13,7 +13,6 @@ class acs:
         self.l_gear = None
         self.l_ers = None
         self.l_lapers = None
-        self.l_ersm = None
         self.l_speed = None
         self.l_rpm = None
         self.l_flags = None
@@ -82,7 +81,6 @@ class acs:
         ac.setPosition(self.l_drs, 70, 50)
         ac.setPosition(self.l_speed, 80, 9)
         ac.setPosition(self.l_rpm, 170, 70)
-        ac.setPosition(self.l_ersm, 3, 9)
         ac.setPosition(self.l_ot, 140, 50)
         ac.setPosition(self.l_pos, 3, 50)
         ac.setPosition(self.l_lap, 3, 70)
@@ -92,7 +90,7 @@ class acs:
         ac.setSize(self.l_ot, 40, 30)
         ac.setSize(self.l_drs, 60, 30)
         ac.setSize(self.l_fuel, 20, 100)
-        labels = [self.l_drs, self.l_ers, self.l_lapers, self.l_speed, self.l_rpm, self.l_ersm, self.l_gear, self.l_pos, self.l_lap, self.l_fuel]
+        labels = [self.l_drs, self.l_ers, self.l_lapers, self.l_speed, self.l_rpm, self.l_gear, self.l_pos, self.l_lap, self.l_fuel]
         for label in labels:
             # ac.setFontColor(label, 0, 0, 0, 1)
             ac.setFontSize(label, 18)
@@ -159,7 +157,6 @@ class acs:
             else:
                 ac.setText(self.l_gear, str(self.gear))
             ac.setText(self.l_rpm, str(self.rpm))
-            ac.setText(self.l_ersm, str(self.ers_mode))
             ac.setText(self.l_pos, "P" + str(self.pos))
             ac.setText(self.l_lap, "L" + str(self.lap))
             if self.flag != self.prev_flag:
