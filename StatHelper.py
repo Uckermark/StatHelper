@@ -13,7 +13,7 @@ class acs:
         self.l_gear = 0
         self.l_ers = 0
         self.l_lapers = 0
-        self.l_ersm
+        self.l_ersm = 0
         self.l_speed = 0
         self.l_rpm = 0
         self.l_flags = 0
