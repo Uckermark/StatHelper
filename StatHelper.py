@@ -9,20 +9,20 @@ class acs:
         self.path = "apps/python/StatHelper/"
         self.texture = self.path + "texture/"
         # label
-        self.l_drs = 0
-        self.l_gear = 0
-        self.l_ers = 0
-        self.l_lapers = 0
-        self.l_ersm = 0
-        self.l_speed = 0
-        self.l_rpm = 0
-        self.l_flags = 0
-        self.l_ot = 0
-        self.l_pos = 0
-        self.l_lap = 0
-        self.l_fuel = 0
+        self.l_drs = None
+        self.l_gear = None
+        self.l_ers = None
+        self.l_lapers = None
+        self.l_ersm = None
+        self.l_speed = None
+        self.l_rpm = None
+        self.l_flags = None
+        self.l_ot = None
+        self.l_pos = None
+        self.l_lap = None
+        self.l_fuel = None
         # app
-        self.app_window = 0
+        self.app_window = None
         # perfcounter
         self.x = 0
         self.y = 0
