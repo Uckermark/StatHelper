@@ -23,25 +23,18 @@ class acs:
         self.l_fuel = 0
         # app
         self.app_window = 0
-        # data
-        self.speed = 0
-        self.drs = 0
-        self.ot = ""
-        self.gear = 0
-        self.ers = 0
-        self.lap_ers = 0
-        self.ers_mode = 0
-        self.rpm = 0
-        self.pos = 0
-        self.lap = 0
-        self.fuel = 0
-        self.flag = 0
         # perfcounter
         self.x = 0
         self.y = 0
         self.ot_flag = False
         self.drs_flag = False
         self.prev_flag = 0
+        # data
+        # TODO: detect DRS and remove DRS/ERS check from refresh_data() if no DRS/ERS in car
+        self.refresh_data()
+        self.has_drs = True 
+        self.has_ers = True if ac.getCarState(0, acsys.CS.ERSMaxJ) > 0 else False
+        # init app window
         self.app_window = ac.newApp("StatHelper")
         ac.setSize(self.app_window, 300, 100)
         ac.setIconPosition(self.app_window, 0, -10000)
