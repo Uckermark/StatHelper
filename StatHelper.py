@@ -13,6 +13,7 @@ class acs:
         self.l_gear = 0
         self.l_ers = 0
         self.l_lapers = 0
+        self.l_ersm
         self.l_speed = 0
         self.l_rpm = 0
         self.l_flags = 0
@@ -105,73 +106,73 @@ class acs:
         ac.setFontSize(self.l_gear, 25)
         
         
-        def update_ers():
-            self.y += 1
-            if self.y == 2:
-                int_ers = int(self.ers)
-                if int_ers > 75:
-                    ac.setBackgroundTexture(self.l_ers, self.texture + "ers/100.png")
-                elif int_ers > 50:
-                    ac.setBackgroundTexture(self.l_ers, self.texture + "ers/75.png")
-                elif int_ers > 25:
-                    ac.setBackgroundTexture(self.l_ers, self.texture + "ers/50.png")
-                elif int_ers > 0:
-                    ac.setBackgroundTexture(self.l_ers, self.texture + "ers/25.png")
-                else:
-                    ac.setBackgroundTexture(self.l_ers, self.texture + "ers/0.png")
-                self.y = 0
+    def update_ers():
+        self.y += 1
+        if self.y == 2:
+            int_ers = int(self.ers)
+            if int_ers > 75:
+                ac.setBackgroundTexture(self.l_ers, self.texture + "ers/100.png")
+            elif int_ers > 50:
+                ac.setBackgroundTexture(self.l_ers, self.texture + "ers/75.png")
+            elif int_ers > 25:
+                ac.setBackgroundTexture(self.l_ers, self.texture + "ers/50.png")
+            elif int_ers > 0:
+                ac.setBackgroundTexture(self.l_ers, self.texture + "ers/25.png")
+            else:
+                ac.setBackgroundTexture(self.l_ers, self.texture + "ers/0.png")
+            self.y = 0
                 
                 
-        def update_fuel():
-            if 100 >= self.fuel >= 0:
-                ac.setBackgroundTexture(self.l_fuel, self.texture + "fuel/" + str(self.fuel) + ".png")
-            else:
-                ac.log("process \"fuel\" failed")
+    def update_fuel():
+        if 100 >= self.fuel >= 0:
+            ac.setBackgroundTexture(self.l_fuel, self.texture + "fuel/" + str(self.fuel) + ".png")
+        else:
+            ac.log("process \"fuel\" failed")
         
         
-        def update_lap_ers():
-            if 100 >= self.lap_ers >= 0:
-                ac.setBackgroundTexture(self.l_lapers, self.texture + "lap_ers/" + str(self.lap_ers) + ".png")
-            else:
-                ac.log("process \"lap_ers\" failed")
+    def update_lap_ers():
+        if 100 >= self.lap_ers >= 0:
+            ac.setBackgroundTexture(self.l_lapers, self.texture + "lap_ers/" + str(self.lap_ers) + ".png")
+        else:
+            ac.log("process \"lap_ers\" failed")
             
-        def update():
-            self.x += 1
-            if self.x >= 3:
-                self.refresh_data()
-                ac.setText(self.l_speed, "{} km/h".format(int(self.speed)))
-                if self.ot_flag and self.ot:
-                    ac.setBackgroundTexture(self.l_ot, self.texture + "ot/overtake_on.png")
-                    self.ot_flag = False
-                elif not self.ot_flag and not self.ot:
-                    ac.setBackgroundTexture(self.l_ot, self.texture + "ot/overtake_off.png")
-                    self.ot_flag = True
-                if self.drs_flag and self.drs:
-                    ac.setBackgroundTexture(self.l_drs, self.texture + "drs/drs_on.png")
-                    self.drs_flag = False
-                elif not self.drs_flag and not self.drs:
-                    ac.setBackgroundTexture(self.l_drs, self.texture + "drs/drs_off.png")
-                    self.drs_flag = True
-                self.update_lap_ers()
-                self.update_fuel()
-                self.update_ers()
-                if self.gear == -1:
-                    ac.setText(self.l_gear, "R")
-                elif self.gear == 0:
-                    ac.setText(self.l_gear, "N")
+    def update():
+        self.x += 1
+        if self.x >= 3:
+            self.refresh_data()
+            ac.setText(self.l_speed, "{} km/h".format(int(self.speed)))
+            if self.ot_flag and self.ot:
+                ac.setBackgroundTexture(self.l_ot, self.texture + "ot/overtake_on.png")
+                self.ot_flag = False
+            elif not self.ot_flag and not self.ot:
+                ac.setBackgroundTexture(self.l_ot, self.texture + "ot/overtake_off.png")
+                self.ot_flag = True
+            if self.drs_flag and self.drs:
+                ac.setBackgroundTexture(self.l_drs, self.texture + "drs/drs_on.png")
+                self.drs_flag = False
+            elif not self.drs_flag and not self.drs:
+                ac.setBackgroundTexture(self.l_drs, self.texture + "drs/drs_off.png")
+                self.drs_flag = True
+            self.update_lap_ers()
+            self.update_fuel()
+            self.update_ers()
+            if self.gear == -1:
+                ac.setText(self.l_gear, "R")
+            elif self.gear == 0:
+                ac.setText(self.l_gear, "N")
+            else:
+                ac.setText(self.l_gear, str(self.gear))
+            ac.setText(self.l_rpm, str(self.rpm))
+            ac.setText(self.l_ersm, str(self.ers_mode))
+            ac.setText(self.l_pos, "P" + str(self.pos))
+            ac.setText(self.l_lap, "L" + str(self.lap))
+            if self.flag != self.prev_flag:
+                if self.flag == 1:
+                    print("blue flag")
+                elif self.flag == 2:
+                    print("yellow flag")
                 else:
-                    ac.setText(self.l_gear, str(self.gear))
-                ac.setText(self.l_rpm, str(self.rpm))
-                ac.setText(self.l_ersm, str(self.ers_mode))
-                ac.setText(self.l_pos, "P" + str(self.pos))
-                ac.setText(self.l_lap, "L" + str(self.lap))
-                if self.flag != self.prev_flag:
-                    if self.flag == 1:
-                        print("blue flag")
-                    elif self.flag == 2:
-                        print("yellow flag")
-                    else:
-                        ac.log("flag error")
+                    ac.log("flag error")
         
 
 
