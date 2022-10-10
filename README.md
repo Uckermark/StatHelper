@@ -1,7 +1,8 @@
 # StatHelper
 A simple dashboard for Assetto Corsa
-as of now, only use this for F1 (or other cars with ERS+DRS)
-support for all cars is currently not priorized as there are other problems to fix
+Created for low-end systems or people who just prefer a simple UI.
+Therefore I only added support for Full HD and lower resolutions. QHD and $K may be added in a later release. 
+Feel free to request new features via issues!
 
 # Installation
 1. Download & unzip release file
