@@ -159,14 +159,12 @@ class app:
             ac.setText(self.l_pos, "P" + str(self.pos))
             ac.setText(self.l_lap, "L" + str(self.lap))
         elif self.p_update1 == 2:
-            self.update_fuel()
-            self.update_flag()
             if info.static.hasDRS:
                 if not self.prev_drs and self.drs:
-                    ac.setBackgroundTexture(self.l_drs, self.texture + "drs/drs_on.png")
+                    ac.setBackgroundTexture(self.l_drs, self.texture + "drs/on.png")
                     self.prev_drs = True
                 elif self.prev_drs and not self.drs:
-                    ac.setBackgroundTexture(self.l_drs, self.texture + "drs/drs_off.png")
+                    ac.setBackgroundTexture(self.l_drs, self.texture + "drs/off.png")
                     self.prev_drs = False
         elif self.p_update1 == 3:
             if info.static.hasERS == 1:
@@ -178,6 +176,8 @@ class app:
             else:
                 ac.setText(self.l_gear, str(self.gear))
         elif self.p_update1 >= 4:
+            self.update_fuel()
+            self.update_flag()
             self.p_update1 = 0
             
         
