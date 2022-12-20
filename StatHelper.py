@@ -2,8 +2,6 @@ import ac
 import acsys
 from sim_info_lib.sim_info import info
 
-app = None
-
 class app:
     def __init__(self):
         # performance counter are marked with p_<var>
