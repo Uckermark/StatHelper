@@ -4,10 +4,10 @@ from sim_info_lib.sim_info import info
 import configparser
 
 class app:
-    def __init__(self, interval, experimental): # TODO: dynamic window size scaling
+    def __init__(self, interval, perf_mode): # TODO: dynamic window size scaling
         
         # initialize config
-        ac.log("Inititalized with:\nInterval: " + str(interval) + "\nExperimental mode: " + str(experimental))
+        ac.log("Inititalized with:\nInterval: " + str(interval) + "\nPerformance mode: " + str(perf_mode))
         self.refresh_interval = interval
 
         # performance counter are marked with p_<var>
@@ -161,16 +161,16 @@ class app:
     def update(self):
         self.p_update1 += 1
         if self.p_update1 == 1:
+            if not self.car_checked:
+                self.has_drs = True if info.static.hasDRS == 1 else False
+                self.has_ers = True if info.static.hasERS == 1 else False
+                self.car_checked = True
             self.refresh_data()
             ac.setText(self.l_speed, "{} km/h".format(int(self.speed)))
             ac.setText(self.l_rpm, str(self.rpm))
             ac.setText(self.l_pos, "P" + str(self.pos))
             ac.setText(self.l_lap, "L" + str(self.lap))
         elif self.p_update1 == 2:
-            if not self.car_checked:
-                self.has_drs = True if info.static.hasDRS == 1 else False
-                self.has_ers = True if info.static.hasERS == 1 else False
-                self.car_checked = True
             if self.has_drs:
                 if not self.prev_drs and self.drs:
                     ac.setBackgroundTexture(self.l_drs, self.texture + "drs/on.png")
@@ -200,13 +200,13 @@ def acMain(ac_version):
     try:
         config = configparser.ConfigParser()
         config.read('apps/python/StatHelper/config.ini')
-        experimental = config['PERF']['EXPERIMENTAL']
+        perf_mode = config['PERF']['PERFORMANCE_MODE']
         interval = int(config['PERF']['INTERVAL'])
     except:
-        experimental = False
+        perf_mode = False
         interval = 1
         ac.log("Could not parse config.ini, using defaults")
-    app = app(interval, experimental)
+    app = app(interval, perf_mode)
     return "StatHelper"
 
 
